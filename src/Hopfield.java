@@ -12,7 +12,11 @@ import java.awt.event.MouseListener;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-
+/*
+Класс Hopfield реализует нейронную сеть Хопфилда с синхронным режимом работы,
+в качестве функции активации используется гиперболический тангенс. Для графического
+интерфейса используется библиотека Swing.
+*/
 public class Hopfield {
 
     private Renderer renderer = new Renderer();
@@ -53,16 +57,15 @@ public class Hopfield {
 
         // Таблица
         JTable table = new JTable();
-        //Создаем таблицу A
+        //Создаем таблицу 
         createDefaultTableModel();
         //устанавливаем размер высоты/ширины для ячеек таблицы
         setSizeTable();
-        //Создаем панель А
+        //Создаем панель 
         createPanel(new Rectangle(20,20,340,330));
         //создаем панель для кнопок
         JPanel panel1 = new JPanel();
         panel1.setBounds(430,20,200,200);
-        //panel1.setBackground(Color.GREEN);
         panel1.setLayout(null);
         //создаем кнопки
         JButton buttonAdd = new JButton("Добавить образ");
@@ -77,11 +80,9 @@ public class Hopfield {
         buttonDelete.setBounds(15,65,180,25);
         buttonDelete.setBackground(Color.LIGHT_GRAY);
 
-
         JButton buttonFind = new JButton("Распознать образ");
         buttonFind.setBounds(15,95,180,25);
         buttonFind.setBackground(Color.LIGHT_GRAY);
-
 
         JButton buttonClean = new JButton("Очистить поле");
         buttonClean.setBounds(15,125,180,25);
@@ -383,7 +384,7 @@ public class Hopfield {
 
         }
     }
-    ///вычислительные функции///
+    //перевод двумерного массива в вектор
     private int[][] toVector(int mas[][]){
         int vector[][] = new int[1][49];
         int count =0;
@@ -395,7 +396,7 @@ public class Hopfield {
         }
         return vector;
     }
-
+    //транспонирование вектора
     private int[][] transpose(int vector[][]){
         int[][] transp = new int[49][1];
         for(int i=0;i<49;i++){
@@ -403,7 +404,7 @@ public class Hopfield {
         }
         return transp;
     }
-
+    //умножение двух массивов(или векторов)
     private int[][] product(int[][] matr1, int[][] matr2){
         int[][] prod = new int[matr1.length][matr2[0].length];
         for(int i = 0; i < matr1.length; i++){
@@ -415,7 +416,7 @@ public class Hopfield {
         }
         return prod;
     }
-
+    //суммирование матриц
     private int[][] sum(int[][] matr1, int[][] matr2){
         int[][] res = new int[49][49];
         for(int i = 0; i < 49; i++){
@@ -425,6 +426,7 @@ public class Hopfield {
         }
         return res;
     }
+    //функция активации
     private int[][] activity(int[][] mas){
         int[][] res = new int[49][1];
         for(int i=0; i<49;i++){
@@ -446,7 +448,7 @@ public class Hopfield {
         }
         return true;
     }
-
+    //Сравнение искаженного образа и найденного эталонного образа в процентах
     private int inPercentages(int[][] cool, int[][] distorted){
         int count =0;
         for(int i=0;i<49;i++){
